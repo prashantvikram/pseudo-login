@@ -1,0 +1,23 @@
+{
+  "name": "pseudo-login",
+  "version": "1.0.0",
+  "description": "A quick low-security registration/login system for demo applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prashantvikram/pseudo-login.git"
+  },
+  "keywords": [
+    "login",
+    "registration"
+  ],
+  "author": "Prashant Vikram",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prashantvikram/pseudo-login/issues"
+  },
+  "homepage": "https://github.com/prashantvikram/pseudo-login#readme"
+}
