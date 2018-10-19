@@ -6,13 +6,14 @@ import morgan from "morgan";
 import compression from "compression";
 import helmet from "helmet";
 import session from "express-session";
+import rateLimit from "express-rate-limit";
 
 import passportConfig from "./config/passport-config";
 import winston from "./config/winston-config";
 
 import { config } from "./config/env-config";
 
-import { Routes } from "./api";
+import { Routes } from "./routes";
 
 class App {
 
@@ -53,6 +54,13 @@ class App {
 
     this.app.use(passport.initialize());
     this.app.use(passport.session());
+
+    const apiLimiter: any = rateLimit({
+      windowMs: 10 * 60 * 1000, // 2 minutes
+      max: 100 // limit each IP to 100 requests per windowMs
+    });
+
+    this.app.use("/api/", apiLimiter);
 
     this.app.use(morgan("combined", {
       stream: {
