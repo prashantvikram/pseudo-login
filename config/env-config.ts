@@ -18,6 +18,8 @@ const envVarSchema: joi.ObjectSchema = joi.object().keys({
     .default("info"),
   MONGO_URL: joi.string()
     .required(),
+  SESSION_SECRET: joi.string()
+    .required(),
 });
 
 const { error, value: envVarParsed } = joi.validate(envVar.parsed, envVarSchema);
@@ -29,5 +31,6 @@ export const config: any = {
   port: envVarParsed.PORT,
   dev: envVarParsed.NODE_ENV,
   level: envVarParsed.LOGGER_LEVEL,
-  mongoUrl: envVarParsed.MONGO_URL
+  mongoUrl: envVarParsed.MONGO_URL,
+  sessionSecret: envVarParsed.SESSION_SECRET
 };
