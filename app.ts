@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import * as bodyParser from "body-parser";
 import mongoose from "mongoose";
 import passport from "passport";
@@ -55,9 +55,15 @@ class App {
     this.app.use(passport.initialize());
     this.app.use(passport.session());
 
-    const apiLimiter: any = rateLimit({
+    const apiLimiter: any = new rateLimit({
       windowMs: 10 * 60 * 1000, // 2 minutes
-      max: 100 // limit each IP to 100 requests per windowMs
+      max: 100, // limit each IP to 100 requests per windowMs
+      message: "Too many requests from this IP",
+      handler: function(req: Request, res: Response):void {
+        // handle requests when limit is reached
+        // could be logged using winston
+        // or saved to a redis store
+      }
     });
 
     this.app.use("/api/", apiLimiter);
