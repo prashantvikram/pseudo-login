@@ -1,8 +1,9 @@
 import app from "./app";
 import * as http from "http";
+import { config } from "./config/env-config";
 
 const server: http.Server = http.createServer(app);
-server.listen(app.get("port"));
+server.listen(config.port);
 
 server.on("error", onError);
 server.on("listening", onListening);

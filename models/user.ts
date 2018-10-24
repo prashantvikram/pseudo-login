@@ -15,17 +15,16 @@ export const UserSchema: Schema = new Schema({
     type: String,
     required: true,
     unique: true,
-    index: true,
     maxlength: [20, "username should be less than or equal to 20 characters"]
   },
   password: {
     type: String,
     required: true
   },
-  lastActive: { type: Date, default: Date.now }
+  lastActive: { type: Date, default: Date.now, expires: 1209600 }
 }, { timestamps: true });
 
-UserSchema.pre("save", function (next: HookNextFunction): any {
+UserSchema.pre("save", function (this: Document, next: HookNextFunction): any {
   var user: Document = this;
   if (!user.isModified("password")) {
     return next();
@@ -45,6 +44,9 @@ UserSchema.pre("save", function (next: HookNextFunction): any {
   });
 });
 
+// remove documents 1209600 seconds (14 days) after the lastActive value.
+// lastActive updates to current date on login
+UserSchema.index({ lastActive: 1 }, { expireAfterSeconds: 0 });
 
 // validate user's password during login
 UserSchema.methods.validatePassword = function (password: string): boolean {
