@@ -18,6 +18,12 @@ The _UserSchema_ has a _lastActive_ field to rememeber the last time a user vist
 * The _/api_ route exposes application's data to authenticated users. This route is rate limited using express-rate-limiter package.
 * connect-mongo is used as the session store.
 
+## Todo
+
+* inlude jest for unit testing
+* include an Error class for a streamlined handling of errors
+* include default avatar images (perhaps from an API)
+
 ## License
 
 MIT
